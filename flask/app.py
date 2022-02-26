@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response, request
 import cv2
 
 app = Flask(__name__)
@@ -21,11 +21,11 @@ def gen_frames():
 def index():
     return render_template('index.html')
 
-@app.route('/home', methods=['POST'])
+@app.route('/home')
 def home():
     return render_template('home.html')
 
-@app.route('/away', methods=['POST'])
+@app.route('/away')
 def away():
     return render_template('away.html')
 
