@@ -3,7 +3,7 @@ import cv2
 
 def facedetection():
         
-    cam = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+    cam = cv2.VideoCapture(0)
 
     faceCascade = cv2.CascadeClassifier('Cascades/haarcascade_frontalface_default.xml')
     eyeCascade = cv2.CascadeClassifier('Cascades/haarcascade_eye.xml')
@@ -21,7 +21,10 @@ def facedetection():
             minNeighbors = 5, # higher number means lower false +ves
             minSize = (30, 30) # minimum rectangle size for a face
         )
-
+        
+        img_g = None
+        img_c = None
+        
         for (x, y, w, h) in faces: # (x,y) -> top left corner coordinate, w -> width, h -> height
             cv2.rectangle(pic, (x, y), (x+w, y+h), (255, 0, 0), 2)
             img_g = gray[y:y+h, x:x+w]
@@ -47,6 +50,10 @@ def facedetection():
             cv2.rectangle(img_c, (x_s, y_s), (x_s + w_s, y_s + h_s), (0, 255, 0), 2)
             
         cv2.imshow('video', pic)
+        ret, buffer = cv2.imencode('.jpg', pic)
+        pic = buffer.tobytes()
+        yield (b'--frame\r\n'
+                b'Content-Type: image/jpeg\r\n\r\n' + pic + b'\r\n')  # concat frame one by one and show result
 
         k = cv2.waitKey(20)
         if k == 27:  # 'ESC' to quit
