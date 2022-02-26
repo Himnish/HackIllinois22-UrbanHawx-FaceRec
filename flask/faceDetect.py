@@ -48,8 +48,8 @@ def facedetection():
             )
         for (x_s, y_s, w_s, h_s) in smile:
             cv2.rectangle(img_c, (x_s, y_s), (x_s + w_s, y_s + h_s), (0, 255, 0), 2)
-            
-        cv2.imshow('video', pic)
+        
+        pic = cv2.flip(pic, 1)
         ret, buffer = cv2.imencode('.jpg', pic)
         pic = buffer.tobytes()
         yield (b'--frame\r\n'
