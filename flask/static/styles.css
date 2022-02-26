@@ -1,0 +1,27 @@
+/* unvisited link */
+a:link {
+    color: white;
+    text-decoration: none;
+    background-color: none;
+  }
+  
+  /* visited link */
+  a:visited {
+    color: white;
+    text-decoration: none;
+    background-color: none;
+  }
+  
+  /* mouse over link */
+  a:hover {
+    color: white;
+    text-decoration: none;
+    background-color: none;
+  }
+  
+  /* selected link */
+  a:active {
+    color: white;
+    text-decoration: none;
+    background-color: none;
+  }
