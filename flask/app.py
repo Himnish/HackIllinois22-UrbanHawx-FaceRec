@@ -1,6 +1,9 @@
 from flask import Flask, render_template, Response, request
 import cv2
 
+
+from faceDetect import facedetection
+
 app = Flask(__name__)
 
 camera = cv2.VideoCapture(0)
@@ -32,7 +35,7 @@ def away():
 
 @app.route('/video_feed')
 def video_feed():
-    return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response (facedetection(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == "__main__":
     app.run(debug=True)
