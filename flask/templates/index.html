@@ -14,23 +14,19 @@
     
     <title>Face Recognition</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> -->
-    <!-- <script src='main.js'></script> -->
 </head>
 
 <body>
     <div class="container">
         <div class="row">
             <div class="col-lg-8  offset-lg-2">
-                <h3 class="mt-5">Live Streaming</h3>
+                <div class="d-flex justify-content-center">
+                    <h1 class="mt-5">Night Watch</h3>
+                </div>
                 <img src="{{ url_for('video_feed') }}" width="100%">
-                <div>                
-                    <button type="button" class="btn btn-info"><a href="home">Home</a></button>
-                    <button type="button" class="btn btn-info"><a href="away">Away</a></button>
-                    <label class="switch">
-                        <input type="checkbox">
-                        <span class="slider round"></span>
-                    </label>
+                <div class="d-flex justify-content-center">                
+                    <button type="button" class="btn btn-info mx-auto"><a href="home">Home</a></button>
+                    <button type="button" class="btn btn-info mx-auto"><a href="away">Away</a></button>
                 </div>
             </div>
         </div>
