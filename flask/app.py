@@ -2,11 +2,13 @@ from flask import Flask, render_template, Response, request
 from flask_mail import Mail, Message
 import cv2
 import os
-from training import train
-
+from training import train, found_unknown
+import time
 from faceDetect import facedetection
 
 app = Flask(__name__)
+
+prev_time = 0
 
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
@@ -21,6 +23,11 @@ people = ['Apoorva',
           'Kushal', 
           'Malay', 
           'Ribhav']
+
+def send_email():
+    msg = Message('Hello from the other side!', sender =   'urbanhawks0@gmail.com', recipients = ['urbanhawks0@gmail.com'])
+    msg.body = "Hey Paul, sending you this email from my Flask app, lmk if it works"
+    mail.send(msg)
 
 @app.route('/',  methods=["GET", "POST"])
 def index():
@@ -40,8 +47,17 @@ def home():
 def away():
     return render_template('add.html')
 
-@app.route('/video_feed')
-def video_feed():
+@app.route('/video_feed_train')
+def video_feed_train():
+    global prev_time
+    img = train()
+    if found_unknown and (time.time() - prev_time) >= 10 * 10e6:
+        prev_time = time.time()
+        send_email()
+    return Response (img, mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/video_feed_facedetect')
+def video_feed_facedetect():
     return Response (facedetection(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == "__main__":
