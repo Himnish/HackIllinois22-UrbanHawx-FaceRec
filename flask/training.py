@@ -108,15 +108,22 @@ font = cv2.FONT_HERSHEY_SIMPLEX
 
 # names related to ids: example ==> Marcelo: id=1,  etc
 #names = ['None', 'Ribhav', 'Ribhav', 'Ribhav', 'Kushal','Kushal', 'Kushal', 'Himnish', 'Himnish', 'Himnish']
-names = ['None', 'Ribhav', 'Kushal', 'Himnish']
+names = ['None']
+
+def receive(person):
+    names.append(person)
+
+def send_size():
+    return len(names)
+
 # Initialize and start realtime video capture
 cam = cv2.VideoCapture(0)
 cam.set(3, 640) # set video widht
 cam.set(4, 480) # set video height
 
 # Define min window size to be recognized as a face
-# minW = 0.1*cam.get(3)
-# minH = 0.1*cam.get(4)
+minW = 0.1*cam.get(3)
+minH = 0.1*cam.get(4)
 
 while True:
     ret, img =cam.read()
