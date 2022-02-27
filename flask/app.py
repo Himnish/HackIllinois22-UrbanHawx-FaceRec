@@ -18,9 +18,12 @@ mail = Mail(app)
 @app.route('/',  methods=["GET", "POST"])
 def index():
     if request.method == "POST":
-        return render_template('recognized.html')
+        if request.form['check'] == 'home':
+            return render_template('away.html')
+        elif request.form['check'] == 'away':
+            return render_template('home.html')
     else:
-        return render_template('index.html')
+        return render_template('home.html')
 
 
 @app.route('/recognized')
