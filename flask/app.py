@@ -1,6 +1,7 @@
 from flask import Flask, render_template, Response, request
 from flask_mail import Mail, Message
 import cv2
+import os
 
 from faceDetect import facedetection
 
@@ -14,6 +15,11 @@ app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 mail = Mail(app)
 
+people = ['Apoorva', 
+          'Himnish',
+          'Kushal', 
+          'Malay', 
+          'Ribhav']
 
 @app.route('/',  methods=["GET", "POST"])
 def index():
@@ -25,10 +31,9 @@ def index():
     else:
         return render_template('home.html')
 
-
 @app.route('/recognized')
 def home():
-    return render_template('recognized.html')
+    return render_template('recognized.html', recognized=people)
 
 @app.route('/add')
 def away():

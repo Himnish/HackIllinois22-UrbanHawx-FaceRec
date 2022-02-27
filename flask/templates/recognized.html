@@ -24,8 +24,11 @@
 
 <body>
     <div class="container">
-        <div class="row d-flex justify-content-center">
+        <div class="row d-flex justify-content-center flex-column align-items-center">
             <h2 class="">Recognized Faces</h2>
+            {% for person in recognized %}
+                <p>{{ person }}</p> 
+            {% endfor %}
         </div>
         <div class="row">
             <div class="col-lg-8  offset-lg-2">
