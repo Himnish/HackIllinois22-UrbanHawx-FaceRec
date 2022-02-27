@@ -35,7 +35,7 @@ def index():
 def home():
     return render_template('recognized.html', recognized=people)
 
-@app.route('/add')
+@app.route('/add',  methods=["GET", "POST"])
 def away():
     return render_template('add.html')
 
