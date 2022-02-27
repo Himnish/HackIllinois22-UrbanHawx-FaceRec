@@ -1,37 +1,43 @@
 from flask import Flask, render_template, Response, request
+from flask_mail import Mail, Message
 import cv2
-
+import os
 
 from faceDetect import facedetection
 
 app = Flask(__name__)
 
-camera = cv2.VideoCapture(0)
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'urbanhawks0@gmail.com'
+app.config['MAIL_PASSWORD'] = 'Login@2003'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+mail = Mail(app)
 
+people = ['Apoorva', 
+          'Himnish',
+          'Kushal', 
+          'Malay', 
+          'Ribhav']
 
-def gen_frames():  
-    while True:
-        success, frame = camera.read()  # read the camera frame
-        frame = cv2.flip(frame, 1)
-        if not success:
-            break
-        else:
-            ret, buffer = cv2.imencode('.jpg', frame)
-            frame = buffer.tobytes()
-            yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
-            
-@app.route('/')
+@app.route('/',  methods=["GET", "POST"])
 def index():
-    return render_template('index.html')
+    if request.method == "POST":
+        if request.form['check'] == 'home':
+            return render_template('away.html')
+        elif request.form['check'] == 'away':
+            return render_template('home.html')
+    else:
+        return render_template('home.html')
 
-@app.route('/home')
+@app.route('/recognized')
 def home():
-    return render_template('home.html')
+    return render_template('recognized.html', recognized=people)
 
-@app.route('/away')
+@app.route('/add',  methods=["GET", "POST"])
 def away():
-    return render_template('away.html')
+    return render_template('add.html')
 
 @app.route('/video_feed')
 def video_feed():
