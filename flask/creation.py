@@ -25,7 +25,7 @@ def boss_create(face_id):
     minH = 0.1*cam.get(4)                                                                           
     count = 0
 
-    while count <= 30:
+    while count <= 100:
         rect, pic = cam.read()
         pic = cv2.flip(pic,1)
         gray = cv2.cvtColor(pic, cv2.COLOR_BGR2GRAY)
