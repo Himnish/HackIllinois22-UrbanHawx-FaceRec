@@ -20,7 +20,7 @@ eyeCascade = cv2.CascadeClassifier('Cascades/haarcascade_eye.xml')
 smileCascade = cv2.CascadeClassifier('Cascades/haarcascade_smile.xml')
 
 minW = 0.1*cam.get(3)
-minH = 0.1*cam.get(4)
+minH = 0.1*cam.get(4)                                                                           
 count = 0
 
 while count <= 50:
