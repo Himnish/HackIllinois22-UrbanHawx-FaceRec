@@ -1,29 +1,27 @@
 from flask import Flask, render_template, Response, request
+from flask_mail import Mail, Message
 import cv2
-
 
 from faceDetect import facedetection
 
 app = Flask(__name__)
 
-camera = cv2.VideoCapture(0)
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'urbanhawks0@gmail.com'
+app.config['MAIL_PASSWORD'] = 'Login@2003'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+mail = Mail(app)
 
 
-def gen_frames():  
-    while True:
-        success, frame = camera.read()  # read the camera frame
-        frame = cv2.flip(frame, 1)
-        if not success:
-            break
-        else:
-            ret, buffer = cv2.imencode('.jpg', frame)
-            frame = buffer.tobytes()
-            yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
-            
-@app.route('/')
+@app.route('/',  methods=["GET", "POST"])
 def index():
-    return render_template('index.html')
+    if request.method == "POST":
+        return render_template('recognized.html')
+    else:
+        return render_template('index.html')
+
 
 @app.route('/recognized')
 def home():
