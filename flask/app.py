@@ -25,13 +25,13 @@ def gen_frames():
 def index():
     return render_template('index.html')
 
-@app.route('/home')
+@app.route('/recognized')
 def home():
-    return render_template('home.html')
+    return render_template('recognized.html')
 
-@app.route('/away')
+@app.route('/add')
 def away():
-    return render_template('away.html')
+    return render_template('add.html')
 
 @app.route('/video_feed')
 def video_feed():
