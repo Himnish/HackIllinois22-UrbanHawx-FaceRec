@@ -1,10 +1,16 @@
 import cv2, numpy, sys, os
 
+import training
 datasets = 'datasets'
 
 
 #user = input('\nEnter your name and press <return> ==>')
-face_id = input('\n enter user id end press <return> ==>  ')
+#face_id = input('\n enter user id end press <return> ==>  ')
+user = input("\nEnter name")
+
+face_id = training.send_size()
+training.receive(user)
+
 
 
 #path_face = os.path.join(datasets,user)
