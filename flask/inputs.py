@@ -18,10 +18,10 @@ def get_list():
     return names
 
 def recognize():
-    recognition.recog(names)
+    return recognition.recog(names)
 
 def train_finally():
-    training.train_the_model()
+    return training.train_the_model()
 
 
 

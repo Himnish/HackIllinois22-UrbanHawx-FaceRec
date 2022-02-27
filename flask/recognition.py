@@ -47,7 +47,10 @@ def recog(names):
 
             # Check if confidence is less them 100 ==> "0" is perfect match 
             if (confidence < 50):
-                id = names[id]
+                if id >= len(names):
+                    id = names[-1]
+                else:
+                    id = names[id]
                 confidence = "  {0}%".format(round(100 - confidence))
             else:
                 id = "unknown"
