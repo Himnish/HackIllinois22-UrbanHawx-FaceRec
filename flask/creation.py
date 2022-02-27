@@ -3,13 +3,9 @@ import cv2, numpy, sys, os
 
 def boss_create(face_id):
     datasets = 'datasets'
-
-
+    
     #user = input('\nEnter your name and press <return> ==>')
     #face_id = input('\n enter user id end press <return> ==>  ')
-
-
-
 
     #path_face = os.path.join(datasets,user)
     #path_smile = os.path.join(datasets,user,'smile')
@@ -45,7 +41,7 @@ def boss_create(face_id):
             img_g = gray[y:y+h, x:x+w]
             cv2.imwrite("datasets/User." + str(face_id) + '.' + str(count) + ".jpg",img_g)
         
-        cv2.imshow('video', pic)
+        # cv2.imshow('video', pic)
         count = count + 1
         k = cv2.waitKey(20)
         if k == 27:  # 'ESC' to quit

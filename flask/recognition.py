@@ -7,7 +7,7 @@ import os
 def recog(names):
 
     recognizer = cv2.face.LBPHFaceRecognizer_create()
-    recognizer.read('flask/trainer.yml')
+    recognizer.read('trainer.yml')
 
     cascadePath = "Cascades/haarcascade_frontalface_default.xml"
     faceCascade = cv2.CascadeClassifier(cascadePath)
@@ -56,7 +56,11 @@ def recog(names):
             cv2.putText(img, str(id), (x+5,y-5), font, 1, (255,255,255), 2)
             cv2.putText(img, str(confidence), (x+5,y+h-5), font, 1, (255,255,0), 1)  
         
-        cv2.imshow('camera',img) 
+        ret, buffer = cv2.imencode('.jpg', img)
+        img = buffer.tobytes()
+        yield (b'--frame\r\n'
+                b'Content-Type: image/jpeg\r\n\r\n' + img + b'\r\n')  # concat frame one by one and show result
+
 
         k = cv2.waitKey(40) & 0xff # Press 'ESC' for exiting video
         if k == 27:

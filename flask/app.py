@@ -2,9 +2,12 @@ from flask import Flask, render_template, Response, request
 from flask_mail import Mail, Message
 import cv2
 import os
-from training import train, found_unknown
 import time
 from faceDetect import facedetection
+from recognition import recog
+from inputs import names
+import sys
+import inputs
 
 app = Flask(__name__)
 
@@ -45,16 +48,24 @@ def home():
 
 @app.route('/add',  methods=["GET", "POST"])
 def away():
+    if request.method == "POST":
+        newname = request.form.get('name')
+        inputs.append_list(newname)
+        # print(newname, flush=True, file=sys.stdout)
     return render_template('add.html')
 
 @app.route('/video_feed_train')
 def video_feed_train():
     global prev_time
-    img = train()
-    if found_unknown and (time.time() - prev_time) >= 10 * 10e6:
-        prev_time = time.time()
-        send_email()
-    return Response (img, mimetype='multipart/x-mixed-replace; boundary=frame')
+    # img = train()
+    # if found_unknown and (time.time() - prev_time) >= 10 * 10e6:
+    #     prev_time = time.time()
+    #     send_email()
+    return Response (facedetection(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/video_feed_recog')
+def video_feed_recog():
+    return Response (recog(names), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/video_feed_facedetect')
 def video_feed_facedetect():

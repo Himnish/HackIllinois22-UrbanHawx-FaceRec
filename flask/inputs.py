@@ -6,12 +6,12 @@ import os
 import recognition
 import training
 
-names= ['None']
+names = ['None']
 
 
-def append_list():
-    user = input("\nEnter ypur name <return> ==> ")
-    names.append(user)
+def append_list(username):
+    # user = input("\nEnter ypur name <return> ==> ")
+    names.append(username)
     creation.boss_create(len(names))
 
 def get_list():
