@@ -2,6 +2,7 @@ from flask import Flask, render_template, Response, request
 from flask_mail import Mail, Message
 import cv2
 import os
+from training import train
 
 from faceDetect import facedetection
 
